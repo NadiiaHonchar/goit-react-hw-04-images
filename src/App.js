@@ -88,6 +88,12 @@ export default function App() {
   return (
     <>
       <div className={style.App}>
+        <Searchbar onSubmit={addSearchName} />
+        {loading && <Loader />}
+        {error && toast.error(`Sorry something went wrong ! ${error}`)}
+        {dateResponse[0].id && (
+          <ImageGalery dateResponse={dateResponse} openModal={openModal} />
+        )}
         <ToastContainer
           position="top-center"
           autoClose={3000}
@@ -96,12 +102,6 @@ export default function App() {
           pauseOnFocusLoss
           pauseOnHover
         />
-        <Searchbar onSubmit={addSearchName} />
-        {loading && <Loader />}
-        {error && toast.error(`Sorry something went wrong ! ${error}`)}
-        {dateResponse[0].id && (
-          <ImageGalery dateResponse={dateResponse} openModal={openModal} />
-        )}
         {dateResponse[0].id && <Button onLoadMore={onLoadMore} />}
         {showModal && (
           <Modal onClose={togleModal}>
